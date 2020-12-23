@@ -1,0 +1,212 @@
+body{
+    background-color: black;
+    color: white;
+}
+
+/*
+
+Quotes
+
+*/
+
+blockquote {
+	font-size: 3rem;
+  }
+  cite {
+	display: block;
+    text-align: right;
+    font-family: Verdana, Arial, sans-serif;
+    margin-right:30%;
+	margin-top: 1rem;
+	font-size: .9rem;
+	color: #aaa;
+	font-style: normal;
+  }
+  blockquote q {
+	font-family: Georgia, serif;
+	font-style: italic;
+	letter-spacing: .1rem;
+  }
+
+  q {
+	quotes: "“" "”" "‘" "’";
+  }
+
+  q:before {
+	  content: open-quote;
+	  margin-right: .8rem;
+  }
+  q:after {
+	content: close-quote;
+  }
+  q:before, q:after {
+	color: #ccc;
+	font-size: 4rem;
+  }
+
+  blockquote q span { 
+	will-change: opacity, filter;
+	opacity: 0;
+	filter: blur(0px);
+  }
+
+
+  /*
+  Hiding
+  */
+
+  .hidden
+  {
+		  visibility: hidden;
+		  opacity: 0;
+		  transition: visibility 0s 2s, opacity 2s linear;
+  }    
+  .visible
+  {
+		  visibility: visible;
+		  opacity: 1;
+		  transition: opacity .5s linear;
+  }       
+  
+
+  /*
+    Own code
+  */
+
+
+  .rightabsolute {
+    position: absolute;
+    margin-right:6%;
+    right: 50px;
+    width: 10%;
+    padding: 10px;
+  }
+
+  
+
+
+  /*
+
+  Dropdowns
+
+  
+
+  .collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+  }
+  
+  .collapsibleSmall {
+    background-color: #777;
+    display: inline-block;
+    position: relative;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+  }
+
+  .active, .collapsible:hover {
+    background-color: #555;
+  }
+  
+  .content {
+    padding: 0 18px;
+    background-color:yellow;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+  }
+
+  .contentSmall{
+    padding: 0 18px;
+    background-color:yellow;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+  }
+
+
+*/
+
+  /*
+  
+  Fade-in below
+  
+  */
+
+  .fade-in {
+    animation: fadeIn ease 10s;
+    -webkit-animation: fadeIn ease 10s;
+    -moz-animation: fadeIn ease 10s;
+    -o-animation: fadeIn ease 10s;
+    -ms-animation: fadeIn ease 10s;
+  }
+  @keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-ms-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+
+  /*
+
+Aligners
+
+  */
+
+  .left {
+    width: 30%;
+    float: left;
+    text-align: right;
+}
+.right {
+    width: 65%;
+    margin-left: 10px;
+    float:left;
+}
+
+.center {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+}
+
+
+input.bigoutline {outline-style: solid; outline-width: 6px; outline-color:red;}
+
+
+.adviewer{
+  width: 100%;
+  height: auto;
+}

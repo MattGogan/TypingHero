@@ -1,0 +1,160 @@
+html{
+    scroll-behavior: smooth;
+}
+
+div{
+    scroll-behavior: smooth;
+}
+
+div.results{
+    margin-left: 15%;
+    background-color:white;
+    padding: 10px;
+    margin-right: 70%;
+    color: black;
+    border: 5px solid pink;
+    box-shadow: 2px 5px;
+}
+
+.typingTest{
+    font-size: 40px;
+    color: black;
+    margin-left: 15%;
+}
+
+.typingTestTimer{
+    margin-left: 1%;
+    margin-top: -1.4%;
+    min-width:  80px;
+    min-height: 70px;
+    color: black;
+    background-color: yellow;
+}
+
+.typingTestRefreshButton{
+    margin-left: 1%;
+    margin-top: -1.4%;
+    color: black;
+    background-color: yellow;
+}
+
+img.refresh{
+    margin-left: 0%;
+    max-width: 40px;
+    max-height: 40px;
+}
+
+div.testcontent{
+    border-radius: 10px;
+    font-size: 40px;
+    min-height: 130px;
+    max-height: 130px;
+    background-color:white;
+    color: black;
+    margin-left: 15%;
+    margin-right: 25%;
+    padding: 5px 10px;
+    overflow-y: hidden;
+}
+
+.inpwrap{
+    display: inline-block;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+div.testinput{
+    margin-top: 2%;
+    border-radius: 10px;
+    font-size: 40px;
+    min-height: 60px;
+    max-height: 60px;
+    min-width: 500px;
+    max-width: 500px;
+    background-color:white;
+    color: black;
+    margin-left: 15%;
+    margin-right: 5%;
+    padding: 0px 10px;
+    overflow-y: hidden;
+    display: inline-block;
+}
+
+div.datawrapper{
+    background: white;
+    max-width: 80%;
+    margin-top: 4%;
+    margin-left: 10%;
+}
+
+.typingTest{
+    border-radius: 10px;
+    resize:none;
+    overflow-y: hidden;
+}
+
+.currWord{
+    background-color:#ededed; 
+}
+
+.currLetter{
+    color: blue;
+}
+
+.correctLetter{
+    color: green;
+}
+
+.incorrectLetter{
+    color: red;
+}
+
+canvas{
+    min-width: 500px;
+    max-width: 1600px;
+    min-height: 500px;
+    max-height: 900px;
+}
+
+
+
+/*Tabs From W3*/
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+  }
+  
+  /* Style the buttons inside the tab */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #ddd;
+  }
+  
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: #ccc;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-width: 80%;
+    margin-left: 10%;
+  }

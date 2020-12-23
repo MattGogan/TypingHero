@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <!--<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/stylelegacy.css">
+
+    <body>
+
+        <br>
+        
+        <div class = "testcontent" id="txtTypeThis"></div>
+        <!--<input type = "text" oninput = "checkInput()" class = "typingTest" id = "txtInput" disabled></input>-->
+        
+        <div id = "divInputWrapper" class = "inpwrap">
+        <div class = "testinput" id = "txtInput"></div>
+        <div class = "w3-button w3-round w3-xxlarge typingTestTimer" type = "button" id = "btnTimer" onclick = "hideTimer()"><span id = "timerContent">60</span></div>
+        <div class = "w3-button w3-round w3-xxlarge typingTestRefreshButton" type = "button" id = "btnReset" onclick = "resetTest()"><img class = "refresh"src = "/assets/pictures/refresh.png"></div>
+        <div class = "w3-button w3-round w3-xxlarge typingTestTimer" type = "button" id = "btnOptions"><span id = "timerContent">Options</span></div>
+        </div>
+        
+
+
+
+       <div id = "divDataWrapper" class = datawrapper hidden>
+        <div class="tab">
+          <button class="tablinks" onclick="openCity(event, 'WPMStats')">WPM Stats</button>
+          <button class="tablinks" onclick="openCity(event, 'KeystrokeDelay')">Keystroke Delay</button>
+          <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+        </div>
+      </div>
+
+      <div id = "KeystrokeDelay" class = "tabcontent">
+        <h3>Keystroke Delay Per Input</h3>
+        <canvas id="myChart"></canvas>
+      </div>
+
+      <div id="WPMStats" class="tabcontent">
+        <h3>WPM Stats</h3>
+        
+        <div id = "divResults" class = "results">  <!--Set to hidden-->
+          <div>Your WPM: <span class = "typingTest" id = "spanWPM"></span></div>
+          <br>
+          <div>Correct Letters: <span id = "spanCorrectLetters"></span></div>
+          <div>Correct Words: <span id = "spanCorrectWords"></span></div>
+          <br>
+          <div>Incorrect Letters: <span id = "spanIncorrectLetters"></span></div>
+          <div>Incorrect Words: <span id = "spanIncorrectWords"></span></div>
+          <br>
+          <div>Average Letters Per Word Typed: <span id = "spanAverageLettersPerWord"></span></div>
+          <br>
+          <div><span id = "spanWPMCalculation">Click To See Our WPM Calculation</span></div>
+        </div>
+
+      </div>
+  
+      
+      <div id="Tokyo" class="tabcontent">
+        <h3>Tokyo</h3>
+        <p>Tokyo is the capital of Japan.</p>
+      </div>
+
+
+
+      <script>
+        function openCity(evt, cityName) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(cityName).style.display = "block";
+          evt.currentTarget.className += " active";
+        }
+        </script>
+
+        <script src = "js/typingrewrite.js"></script>
+        <script src = "js/enablecollapsibles.js"></script>
+        
+    </body>
+</html>
