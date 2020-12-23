@@ -324,10 +324,8 @@ function checkInput(){
         
         checkSkippedLetters();
         unhighlightLastWord(); 
-        
 
         
-
         currWordIndex++;
         console.log("NEW WORD: " + allWords[currWordIndex]);
         currWordArr = allWords[currWordIndex].split();
