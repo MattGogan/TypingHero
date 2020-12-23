@@ -53,10 +53,7 @@ function initializeKeys(){
         }else if(evt.key == "Backspace"){
             backspaceEvent();
         }else if(evt.key == " "){
-            inp.innerHTML = "";
-            wordIndex++;
-            charIndex++;
-            colorCurr();
+            spaceEvent();
         }else{
             inp.innerHTML += evt.key;
             if(evt.key == chars[charIndex]){
@@ -74,6 +71,9 @@ function initializeKeys(){
 
 function backspaceEvent(){
 
+
+    //TODO //when backspacing, find the incorrect letters from their word and insert # for them.  
+
     if(inp.innerHTML.length>0){
         inp.innerHTML = inp.innerHTML.substring(0, inp.innerHTML.length-1);
         removeAllColor();
@@ -87,6 +87,20 @@ function backspaceEvent(){
         inp.innerHTML = words[wordIndex];
     }
 }
+
+
+function spaceEvent(){
+    //Check if letters missed, then jump ahead and mark all as wrong.
+    //up next: handle pressing space early to jump to next word.  Don't just charindex++, use charIndex = array.indexOf(" ", charIndex) and declor / incorrect color
+    
+    inp.innerHTML = "";
+    wordIndex++;
+    charIndex++;
+    colorCurr();
+}
+
+
+
 
 function colorCurr(){
     document.getElementById(charIndex).classList.add("currLetter");
@@ -110,8 +124,8 @@ function removeAllColor(){
 
 
 
-//up next: handle pressing space early to jump to next word.  Don't just charindex++, use charIndex = array.indexOf(" ", charIndex) and declor / incorrect color
-//when backspacing, find the incorrect letters from their word and insert # for them.  
+
+
 
 
 
