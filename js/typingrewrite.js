@@ -3,6 +3,9 @@ var wordIndex = 0;
 var correctLetters, correctWords, timeTaken, currWordIndex, currWordArr, allWords, allLetters, allLetters1D, allWordSpans, letterSpans, chars, words, charspans;
 var INITIAL_CHARS_LOADED_COUNT = 300;
 
+var testrunning = false;
+var testTime = 3;
+var testTimeRemaining = testTime;
 
 const AVG_CHARS_PER_WORD_ENGLISH = 4.2;
 var LETTER_COUNT_CURRENT_TEST = 0;
@@ -45,8 +48,12 @@ function initializeKeys(){
     var ignorechars = ["Shift", "Control", "Meta", "Alt"];
 
     document.onkeydown = function(evt) {
+        if(!testrunning){
+            startTest();
+        }
         evt = evt || window.event;
-        console.log("Expected " + chars[charIndex]);
+        var expectedKey = chars[charIndex];
+        console.log("Expected " + expectedKey);
 
         if(ignorechars.includes(evt.key)){
             //do nothing
@@ -55,39 +62,111 @@ function initializeKeys(){
         }else if(evt.key == " "){
             spaceEvent();
         }else{
-            inp.innerHTML += evt.key;
-            if(evt.key == chars[charIndex]){
-                colorCorrect();
-            }else{
-                colorIncorrect();
+            if(expectedKey != " "){
+                inp.innerHTML += evt.key;
+                if(evt.key == chars[charIndex]){
+                    colorCorrect();
+                }else{
+                    colorIncorrect();
+                }
+                charIndex++;
+                colorCurr();
             }
-            charIndex++;
-            colorCurr();
         }
     };
 
     console.log("Keys initialized");
 }
 
+function startTest(){
+    testrunning = true;
+    var btnTimer = document.getElementById("btnTimer");
+    btnTimer.innerHTML = testTime;
+
+    var interval = setInterval(function(){ 
+        btnTimer.innerHTML = testTimeRemaining;
+        testTimeRemaining--;
+        if(testTimeRemaining == -1){
+            endTest();
+            clearInterval(interval);
+        }
+     }, 1000);
+}
+
+function resetTest(){
+    resetVariables();
+    initializeTest();
+    initializeData();
+    initializeKeys();
+}
+
+function resetVariables(){
+    wordIndex = 0;
+    charIndex = 0;
+    testrunning = false;
+    testTimeRemaining = testTime;
+    document.getElementById("txtInput").innerHTML = "";
+    document.getElementById("txtTypeThis").innerHTML = "";
+}
+
+function endTest(){
+    freezeInputs();
+    calculateResults();
+}
+
+
+function freezeInputs(){
+    document.onkeydown = "";
+}
+
+
+function calculateResults(){
+    console.log("Results Hypothetically Calculated")
+}
+
+
 function backspaceEvent(){
-
-
-    //TODO //when backspacing, find the incorrect letters from their word and insert # for them.  
-
-    if(inp.innerHTML.length>0){
+    if(inp.innerHTML.length>1){
         inp.innerHTML = inp.innerHTML.substring(0, inp.innerHTML.length-1);
         removeAllColor();
         charIndex --;
         removeAllColor();
         colorCurr();
-    }else{
+    }else{ //Roll back the word.
+        if(charIndex>0){
         wordIndex--;
         removeAllColor();
         charIndex--;
-        inp.innerHTML = words[wordIndex];
+        inp.innerHTML = getPrevWord();
+        }
     }
 }
 
+function getPrevWord(){
+    var returnThis = "";
+    var lastCharIndexCurrWord = charIndex-1;
+    var firstCharIndexCurrWord = indexOfSpaceBefore(lastCharIndexCurrWord);
+
+    for(var i = firstCharIndexCurrWord; i<=lastCharIndexCurrWord; i++){
+        if(document.getElementById(i).classList.contains("incorrectLetter")){
+            returnThis += "#";
+        }else{
+            returnThis += chars[i];
+        }
+    }
+    return returnThis;
+}
+
+function indexOfSpaceBefore(index){
+    while(index > 0){
+        if(chars[index] == " "){
+            return index;
+        }
+        index--;
+    }
+    console.log("No index found. Returning 0");
+    return 0;
+}
 
 function spaceEvent(){
     //Check if letters missed, then jump ahead and mark all as wrong.
@@ -95,12 +174,23 @@ function spaceEvent(){
     
     inp.innerHTML = "";
     wordIndex++;
-    charIndex++;
+    var oldIndex = charIndex;
+    charIndex = chars.indexOf(" ", charIndex)+1;
+
+    if(charIndex-oldIndex > 1){
+        colorIncorrectRange(oldIndex, charIndex);
+    }
+
     colorCurr();
 }
 
 
-
+function colorIncorrectRange(i1, i2){
+    for(var i = i1; i < i2; i++){
+        document.getElementById(i).classList.remove("currLetter");
+        document.getElementById(i).classList.add("incorrectLetter");
+    }
+}
 
 function colorCurr(){
     document.getElementById(charIndex).classList.add("currLetter");
