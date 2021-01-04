@@ -62,10 +62,8 @@ function initializeKeys(){
             //do nothing
         }else if(evt.key == "Backspace"){
             backspaceEvent();
-            scrollTestContent()
         }else if(evt.key == " "){
             spaceEvent();
-            scrollTestContent()
         }else{
             if(expectedKey != " "){
                 inp.innerHTML += evt.key;
@@ -78,6 +76,8 @@ function initializeKeys(){
                 colorCurr();
             }
         }
+        
+        scrollTestContent()
     };
 
     console.log("Keys initialized");
@@ -91,7 +91,7 @@ function startTest(){
     var interval = setInterval(function(){ 
         btnTimer.innerHTML = testTimeRemaining;
         testTimeRemaining--;
-        if(testTimeRemaining == -1){
+        if(testTimeRemaining <= -1){
             endTest();
             clearInterval(interval);
         }
@@ -185,7 +185,7 @@ function spaceEvent(){
     if(charIndex-oldIndex > 1){
         colorIncorrectRange(oldIndex, charIndex);
     }
-
+    
     colorCurr();
 }
 
@@ -219,17 +219,34 @@ function removeAllColor(){
 
 
 
+function toggleTestType(){
+    var content = document.getElementById("txtTypeThis");
+
+    if(content.classList.contains("testcontent")){
+        content.classList.remove("testcontent");
+        content.classList.add("testcontenthorizontal");
+    }else{
+        content.classList.add("testcontent");
+        content.classList.remove("testcontenthorizontal");
+    }
+
+
+}
+
+
+
+
 
 function scrollTestContent(){
     var testContent = document.getElementById("txtTypeThis");
-    
-    if(testContent.classList.contains("testcontenthorizontal")){
-        location.scrollTo(document.getElementById(charIndex));
-        console.log("Scrolling horizontally...");
+    var nextCharSpan = document.getElementById(charIndex);
 
-    }else if(testContent.classList.contains("testcontent")){
-        var nextCharSpan = document.getElementById(charIndex);
-        txtTypeThis.scrollTop = nextCharSpan.offsetTop-20;
+    if(testContent.classList.contains("testcontenthorizontal")){
+        testContent.scrollLeft = nextCharSpan.offsetLeft - 300;
+        console.log(nextCharSpan.offsetLeft);
+
+    }else if(testContent.classList.contains("testcontent")){ 
+        testContent.scrollTop = nextCharSpan.offsetTop-20;
     }
 }
 
