@@ -4,13 +4,14 @@ var correctLetters, correctWords, timeTaken, currWordIndex, currWordArr, allWord
 var INITIAL_CHARS_LOADED_COUNT = 300;
 
 var testrunning = false;
-var testTime = 3;
+var testTime = 12;
 var testTimeRemaining = testTime;
 
 const AVG_CHARS_PER_WORD_ENGLISH = 4.2;
 var LETTER_COUNT_CURRENT_TEST = 0;
 var WORD_COUNT_CURRENT_TEST = 0;
 var AVG_LETTER_PER_WORD_CURRENT_TEST = 0;
+var topOfTextboxOffset;
 
 
 window.onload = function(){
@@ -37,7 +38,7 @@ function initializeTest(){
         content.innerHTML += charspans[i];
     }
 
-    
+    topOfTextboxOffset = document.getElementById("0").offsetHeight;
     document.getElementById(0).classList.add("currLetter");
     console.log("Test Initialized");
 }
@@ -48,6 +49,7 @@ function initializeKeys(){
     var ignorechars = ["Shift", "Control", "Meta", "Alt"];
 
     document.onkeydown = function(evt) {
+        scrollTestContent()
         if(!testrunning){
             startTest();
         }
@@ -215,7 +217,19 @@ function removeAllColor(){
 
 
 
+function scrollTestContent(){
+    var testContent = document.getElementById("txtTypeThis");
+    
+    if(testContent.classList.contains("testcontenthorizontal")){
+        location.scrollTo(document.getElementById(charIndex));
+        console.log("Scrolling horizontally...");
 
+    }else if(testContent.classList.contains("testcontent")){
+        //testContent.scrollTop = document.getElementById(charIndex).offsetTop - 2*topOfTextboxOffset;
+        testContent.scrollTop = testContent.scrollTop-500;
+        console.log("Scrolling vertically...");
+    }
+}
 
 
 
