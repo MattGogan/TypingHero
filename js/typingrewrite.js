@@ -1,6 +1,6 @@
 var charIndex = 0;
 var wordIndex = 0;
-var correctLetters, correctWords, timeTaken, currWordIndex, currWordArr, allWords, allLetters, allLetters1D, allWordSpans, letterSpans, chars, words, charspans;
+var correctLetters, correctWords, timeTaken, currWordIndex, currWordArr, allWords, allLetters, allLetters1D, allWordSpans, chars, words, charspans;
 var INITIAL_CHARS_LOADED_COUNT = 300;
 
 var testrunning = false;
@@ -40,6 +40,7 @@ function initializeTest(){
 
     topOfTextboxOffset = document.getElementById("0").offsetHeight;
     document.getElementById(0).classList.add("currLetter");
+    scrollTestContent();
     console.log("Test Initialized");
 }
 
@@ -49,7 +50,7 @@ function initializeKeys(){
     var ignorechars = ["Shift", "Control", "Meta", "Alt"];
 
     document.onkeydown = function(evt) {
-        scrollTestContent()
+        
         if(!testrunning){
             startTest();
         }
@@ -61,8 +62,10 @@ function initializeKeys(){
             //do nothing
         }else if(evt.key == "Backspace"){
             backspaceEvent();
+            scrollTestContent()
         }else if(evt.key == " "){
             spaceEvent();
+            scrollTestContent()
         }else{
             if(expectedKey != " "){
                 inp.innerHTML += evt.key;
@@ -225,9 +228,8 @@ function scrollTestContent(){
         console.log("Scrolling horizontally...");
 
     }else if(testContent.classList.contains("testcontent")){
-        //testContent.scrollTop = document.getElementById(charIndex).offsetTop - 2*topOfTextboxOffset;
-        testContent.scrollTop = testContent.scrollTop-500;
-        console.log("Scrolling vertically...");
+        var nextCharSpan = document.getElementById(charIndex);
+        txtTypeThis.scrollTop = nextCharSpan.offsetTop-20;
     }
 }
 

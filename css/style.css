@@ -47,8 +47,8 @@ img.refresh{
 div.testcontent{
     border-radius: 10px;
     font-size: 40px;
-    min-height: 130px;
-    max-height: 130px;
+    min-height: 120px;
+    max-height: 120px;
     background-color:white;
     color: black;
     margin-left: 15%;
