@@ -3,6 +3,9 @@ var wordIndex = 0;
 var correctLetters, correctWords, timeTaken, currWordIndex, currWordArr, allWords, allLetters, allLetters1D, allWordSpans, chars, words, charspans;
 var INITIAL_CHARS_LOADED_COUNT = 300;
 
+var timeBetweenKeystrokes = [];
+var timeLastInputReceived;
+
 var testrunning = false;
 var testTime = 12;
 var testTimeRemaining = testTime;
@@ -50,7 +53,6 @@ function initializeKeys(){
     var ignorechars = ["Shift", "Control", "Meta", "Alt"];
 
     document.onkeydown = function(evt) {
-        
         if(!testrunning){
             startTest();
         }
@@ -66,6 +68,7 @@ function initializeKeys(){
             spaceEvent();
         }else{
             if(expectedKey != " "){
+                recordKeystrokeTime();
                 inp.innerHTML += evt.key;
                 if(evt.key == chars[charIndex]){
                     colorCorrect();
@@ -82,6 +85,23 @@ function initializeKeys(){
 
     console.log("Keys initialized");
 }
+
+
+function recordKeystrokeTime(){
+    var n = new Date()
+
+    timeBetweenKeystrokes[charIndex] = (-1*(timeLastInputReceived - n));
+    timeLastInputReceived = n;
+    
+    
+    if(charIndex == 0){
+        timeBetweenKeystrokes[0] = 0;
+    }
+}
+
+
+
+
 
 function startTest(){
     testrunning = true;
@@ -126,6 +146,7 @@ function freezeInputs(){
 
 
 function calculateResults(){
+    buildKeystrokesChart();
     console.log("Results Hypothetically Calculated")
 }
 
@@ -143,6 +164,7 @@ function backspaceEvent(){
         removeAllColor();
         charIndex--;
         inp.innerHTML = getPrevWord();
+        colorCurr();
         }
     }
 }
@@ -176,7 +198,7 @@ function indexOfSpaceBefore(index){
 function spaceEvent(){
     //Check if letters missed, then jump ahead and mark all as wrong.
     //up next: handle pressing space early to jump to next word.  Don't just charindex++, use charIndex = array.indexOf(" ", charIndex) and declor / incorrect color
-    
+    recordKeystrokeTime();
     inp.innerHTML = "";
     wordIndex++;
     var oldIndex = charIndex;
@@ -199,6 +221,9 @@ function colorIncorrectRange(i1, i2){
 
 function colorCurr(){
     document.getElementById(charIndex).classList.add("currLetter");
+
+    document.getElementById(charIndex+1).classList.remove("currLetter");
+    document.getElementById(charIndex-1).classList.remove("currLetter");
 }
 
 function colorCorrect(){
@@ -274,4 +299,46 @@ function initializeData(rawstring){
 
 function getTestContent(){
     return "Hi it's Vince from shamwow, you'll be saying wow every time. It's like a shammy, it's like a towel, it's like a sponge. A regular towel doesn't work wet, this works wet or dry. This is for the house The Car The Boat The RV Shamwow holds 12 times it's weight in liquid, look at this, it just does the work. Why do you want to work twice as hard? It doesn't drip, doesn't make a mess, wring it out. You wash it in the washing machine. Made in Germany, you know the Germans always make good stuff. Here's some cola, wine, coffee, cola, pet stains. Not only is your damage going to be on top, there's your mildew. That is gonna smell, see that. Now we're gonna do this in real time, look at this, put it on the spill, turn it over without putting any pressure, 50% of the cola...right there you following me camera guy? The other 50% the color starts to come up no other towels' gonna do that. It acts like a vacuum, and look at this virtually dry on the bottom. See what I’m telling ya Shamwow you'll be saying wow every time. I can't live without it, I just love it! Oh my gosh I don't even buy paper towels anymore. If you're gonna wash your cars or any other vehicle, you'll be out of your mind not to own one of these. All I can say is SHAM! WOW! You're gonna spend twenty dollars every month on paper towels anyway you're throwin away your money. The mini shamwows are for everything, for everyday use. This last ten years, this last a week, I don't know it sells itself. The shamwow sells for 19.95 you get one for the house, one for the car, two for the kitchen and bathroom. But if you call now, within the next twenty minutes cause we can't do this all day, we'll give you a second set absolutely free. So that's 8 shamwows for 19.95. It comes with a ten year warranty, here's how to order.";
+}
+
+
+
+
+function buildKeystrokesChart(){
+
+    //timeBetweenKeystrokes.splice(0,1);
+    console.log("Delay Before Keystrokes: ");
+    console.log(timeBetweenKeystrokes);
+
+    var charsshortened = chars.splice(0, timeBetweenKeystrokes.length);
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: charsshortened,
+        datasets: [{
+            label: 'Milliseconds Between Keystroke',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: timeBetweenKeystrokes,
+            lineTension: 0,
+            fill: false
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+        responsive: true,
+        bezierCurve : false,
+        legend:{
+            labels:{
+                defaultFontSize: 36
+            }
+        }
+    }
+});
 }
