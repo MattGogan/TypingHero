@@ -7,19 +7,23 @@ div{
 }
 
 div.results{
-    margin-left: 15%;
-    background-color:white;
-    padding: 10px;
-    margin-right: 70%;
-    color: black;
-    border: 5px solid pink;
-    box-shadow: 2px 5px;
+    margin-left: 2%;
+    background-color:black;
+    padding: 20px;
+    color:white;
+    /*border: 5px solid yellow;*/
 }
 
 .typingTest{
     font-size: 40px;
     color: black;
     margin-left: 15%;
+}
+
+.wpm{
+    font-size: 40px;
+    color: white;
+    margin-left: 10%;
 }
 
 .typingTestTimer{

@@ -28,6 +28,13 @@ function initializeTest(){
     content = document.getElementById("txtTypeThis");
     inp = document.getElementById("txtInput");
 
+    document.getElementById("divDataWrapper").hidden = true;
+    var resulttabs = document.getElementsByClassName("tabcontent");
+    console.log(resulttabs);
+    for(var i = 0; i<resulttabs.length; i++){
+        resulttabs[i].style.display = "none";
+    }
+
     var teststring = getTestContent();
     chars = teststring.split("");
     words = teststring.split(" ");
@@ -130,6 +137,8 @@ function resetVariables(){
     charIndex = 0;
     testrunning = false;
     testTimeRemaining = testTime;
+    timeBetweenKeystrokes = [];
+    timeLastInputReceived = NaN;
     document.getElementById("txtInput").innerHTML = "";
     document.getElementById("txtTypeThis").innerHTML = "";
 }
@@ -146,8 +155,42 @@ function freezeInputs(){
 
 
 function calculateResults(){
+    document.getElementById("divDataWrapper").hidden = false;
+
+    var incorrectWords = 0;
+    var correctWords = 0;
+    var spaces = 0;
+
+    for(var i = 0; i<charIndex; i++){
+        if(document.getElementById(i).classList.contains("incorrectLetter")){
+            incorrectWords++;
+            i = chars.indexOf(" ", i) + 1; //go to the next word
+            spaces++;
+        }else if(document.getElementById(i).innerHTML == " "){
+            correctWords++;
+            spaces++;
+        }
+    }
+
+    var avgcharsperword = ((charIndex-spaces) / spaces).toFixed(2);
+
+    var correctStrokes = document.getElementsByClassName("correctLetter");
+    var incorrectStrokes = document.getElementsByClassName("incorrectLetter");
+
+    var wpm = ((correctStrokes.length -incorrectStrokes.length )/ AVG_CHARS_PER_WORD_ENGLISH) * 60/testTime;
+    wpm = wpm.toFixed(1);
+    
+
+    document.getElementById("spanCorrectLetters").innerHTML = correctStrokes.length;
+    document.getElementById("spanIncorrectLetters").innerHTML = incorrectStrokes.length;
+    document.getElementById("spanCorrectWords").innerHTML = correctWords;
+    document.getElementById("spanIncorrectWords").innerHTML = incorrectWords;
+    document.getElementById("spanAverageLettersPerWord").innerHTML = avgcharsperword;
+    document.getElementById("spanWPM").innerHTML = wpm;
+    
+    
+
     buildKeystrokesChart();
-    console.log("Results Hypothetically Calculated")
 }
 
 
@@ -183,6 +226,7 @@ function getPrevWord(){
     }
     return returnThis;
 }
+
 
 function indexOfSpaceBefore(index){
     while(index > 0){
