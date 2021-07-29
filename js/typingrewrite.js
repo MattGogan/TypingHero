@@ -8,7 +8,7 @@ var timeBetweenKeystrokes = [];
 var timeLastInputReceived;
 
 var testrunning = false;
-var testTime = 12;
+var testTime = 23;
 var testTimeRemaining = testTime;
 
 const AVG_CHARS_PER_WORD_ENGLISH = 4.2;
